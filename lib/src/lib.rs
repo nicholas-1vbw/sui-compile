@@ -16,6 +16,13 @@ pub struct Proof {
 }
 
 impl Proof {
+    /// Creates a new `Proof` instance from the provided checkpoint, committee, and transaction digest.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let proof = Proof::new(checkpoint_data, committee, transaction_digest).unwrap();
+    /// ```
     pub fn new(
         checkpoint: CheckpointData,
         committee: Committee,
@@ -28,6 +35,20 @@ impl Proof {
         })
     }
 
+    /// Verifies the proof by validating the checkpoint summary and confirming the presence and correctness of the specified transaction.
+    ///
+    /// Checks that the checkpoint summary is valid for the given committee and contents, locates the transaction with the matching digest, and ensures the events digest matches the effects. Returns the transaction's effects and its optional events if verification succeeds.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the checkpoint summary is invalid, the transaction is not found, or the events digest does not match.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let proof = Proof::new(checkpoint, committee, tid).unwrap();
+    /// let (effects, events) = proof.verify().unwrap();
+    /// ```
     pub fn verify(&self) -> Result<(TransactionEffects, Option<TransactionEvents>)> {
         let checkpoint = &self.checkpoint;
         let committee = &self.committee;
