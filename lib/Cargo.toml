@@ -8,3 +8,7 @@ edition = "2024"
 sui-types = { git = "https://github.com/mystenlabs/sui", package = "sui-types", tag="mainnet-v1.50.1"}
 anyhow = "1"
 serde = { version = "1" , features = ["derive"]}
+
+
+[dev-dependencies]
+serde_json = "1"
