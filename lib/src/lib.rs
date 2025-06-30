@@ -1,11 +1,9 @@
-use sui_types::base_types::{ObjectID, TransactionDigest};
+use sui_types::base_types::TransactionDigest;
 use sui_types::committee::Committee;
 use sui_types::effects::{TransactionEffects, TransactionEffectsAPI, TransactionEvents};
 use sui_types::full_checkpoint_content::CheckpointData;
-use sui_types::messages_checkpoint::CheckpointSequenceNumber;
-use sui_types::object::Object;
 
-use anyhow::{anyhow,Result};
+use anyhow::{anyhow, Result};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -20,12 +18,12 @@ impl Proof {
         checkpoint: CheckpointData,
         committee: Committee,
         tid: TransactionDigest,
-    ) -> Result<Self> {
-        Ok(Self {
+    ) -> Self {
+        Self {
             checkpoint,
             committee,
             tid,
-        })
+        }
     }
 
     pub fn verify(&self) -> Result<(TransactionEffects, Option<TransactionEvents>)> {
