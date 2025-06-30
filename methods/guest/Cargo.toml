@@ -7,6 +7,4 @@ edition = "2021"
 
 [dependencies]
 risc0-zkvm = { version = "1.2.6", default-features = false, features = ['std'] }
-
-# we need to compile sui types into zkvm
-sui-types = { git = "https://github.com/mystenlabs/sui", package = "sui-types", tag="mainnet-v1.50.1"}
+lib = {path = "../../lib"}
