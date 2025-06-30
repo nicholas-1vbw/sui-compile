@@ -1,0 +1,10 @@
+[package]
+name = "lib"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# we need to compile sui types into zkvm
+sui-types = { git = "https://github.com/mystenlabs/sui", package = "sui-types", tag="mainnet-v1.50.1"}
+anyhow = "1"
+serde = { version = "1" , features = ["derive"]}
