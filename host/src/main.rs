@@ -5,6 +5,8 @@ use methods::{
 };
 use risc0_zkvm::{default_prover, ExecutorEnv};
 
+const PROOF_JSON:&str = include_str!(concat!(env!("CARGO_MANIFEST_DIR"),"proof.json"));
+
 fn main() {
     // Initialize tracing. In order to view logs, run `RUST_LOG=info cargo run`
     tracing_subscriber::fmt()
@@ -24,7 +26,7 @@ fn main() {
     // ExecutorEnvBuilder::build().
 
     // For example:
-    let input: u32 = 15 * u32::pow(2, 27) + 1;
+    let input: lib::Proof = serde_json::from_str(PROOF_JSON).unwrap();
     let env = ExecutorEnv::builder()
         .write(&input)
         .unwrap()
@@ -46,7 +48,8 @@ fn main() {
     // TODO: Implement code for retrieving receipt journal here.
 
     // For example:
-    let _output: u32 = receipt.journal.decode().unwrap();
+    let _output: bool = receipt.journal.decode().unwrap();
+    assert!(_output);
 
     // The receipt was verified at the end of proving, but the below code is an
     // example of how someone else could verify this receipt.

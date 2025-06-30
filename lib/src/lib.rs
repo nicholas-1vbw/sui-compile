@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use sui_types::base_types::TransactionDigest;
 use sui_types::committee::Committee;
 use sui_types::effects::{TransactionEffects, TransactionEffectsAPI, TransactionEvents};
@@ -60,4 +61,12 @@ impl Proof {
         Ok((matching_tx.effects.clone(), matching_tx.events.clone()))
     }
 
+}
+
+
+#[test]
+fn test_verify() {
+    let proof_file = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("proof.json");
+    let proof: Proof = serde_json::from_reader(std::fs::File::open(proof_file).unwrap()).unwrap();
+    proof.verify().unwrap();
 }
